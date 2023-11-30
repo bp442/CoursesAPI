@@ -12,6 +12,7 @@ function init() {
 
     fetch("http://localhost:8081/api/courses").then(response => response.json())
         .then(data => {
+            id -= 1;
             let row = table.insertRow(-1);
                 let cell1 = row.insertCell(0);
                 let cell2 = row.insertCell(1);
@@ -24,7 +25,7 @@ function init() {
                 cell1.innerText = data[id].id;
                 cell2.innerText = data[id].dept;
                 cell3.innerText = data[id].courseNum;
-                cell4.innerHTML = data[id].courseName;
+                cell4.innerText = data[id].courseName;
                 cell5.innerText = data[id].instructor;
                 cell6.innerText = data[id].startDate;
                 cell7.innerText = data[id].numDays;

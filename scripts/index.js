@@ -19,8 +19,10 @@ function init() {
                 cell2.innerText = data[i].courseNum;
                 cell3.innerText = data[i].courseName;
                 
-
-                cell4.innerHTML = "<a href =`http://localhost:8081/details.html?courseid=${data[i].id}`>Details Here!</a>"
+                let anchor = document.createElement("a");
+                anchor.href = "details.html?courseid=" + data[i].id;
+                anchor.innerText = "See Details"
+                cell4.appendChild(anchor);
 
             }
         })
