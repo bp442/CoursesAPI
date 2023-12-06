@@ -1,17 +1,18 @@
 "use strict";
+const urlParams = new URLSearchParams(location.search);
+let table = document.getElementById("tableBody");
+let id;
+if (urlParams.has("courseid") === true) {
+    id = Number(urlParams.get("courseid"));
+}
 
 window.onload = init;
 
 function init() {
-    const urlParams = new URLSearchParams(location.search);
-    let table = document.getElementById("tableBody");
-    let id = -1;
-    if (urlParams.has("courseid") === true) {
-        id = urlParams.get("courseid")
-    }
 
     fetch("http://localhost:8081/api/courses").then(response => response.json())
         .then(data => {
+            
             for(let i = 0; i < data.length; i++){
                 if(data[i].id == id){
                     let row = table.insertRow(-1);
@@ -32,6 +33,25 @@ function init() {
                     cell7.innerText = data[i].numDays;
                 }
             }
+           
 
         });
+
+        let deleteBtn = document.getElementById("deleteBtn");
+
+        deleteBtn.onclick = deleteCourse;
+}
+
+function deleteCourse(){
+    fetch("http://localhost:8081/api/courses/" + id, {
+        method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(json =>{
+        location.href = "index.html";
+    })
+    .catch(err =>{
+        location.href = "index.html";  
+    })
+
 }
